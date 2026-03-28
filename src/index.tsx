@@ -1,57 +1,80 @@
 import '@logseq/libs'
 
-import { BlockEntity } from '@logseq/libs/dist/LSPlugin'
 import { createRoot } from 'react-dom/client'
 
-import { handlePopup } from './handle-popup'
-import css from './index.css?raw'
-import RTE from './RTE'
 import { settings } from './settings'
+import { VimCMEditor } from './vim-editor/VimCMEditor'
 
 const main = async () => {
-  console.log('logseq-richtexteditor-plugin loaded')
-  // Used to handle any popups
-  handlePopup()
-  logseq.provideStyle(css)
-
-  logseq.Editor.registerSlashCommand('Insert rich text editor', async (e) => {
-    await logseq.Editor.insertAtEditingCursor(`{{renderer :rte_${e.uuid}}}`)
-    await logseq.Editor.insertBlock(e.uuid, '', {
-      sibling: false,
-      before: false,
-    })
-    await logseq.Editor.setBlockCollapsed(e.uuid, true)
-    await logseq.Editor.exitEditingMode(true)
+  setTimeout(() => {
+    logseq.UI.showMsg('logseq-vimeditor-plugin loaded')
   })
 
-  logseq.App.onMacroRendererSlotted(
-    async ({ slot, payload: { uuid, arguments: args } }) => {
-      const [type] = args
-      if (!type || !type.startsWith(':rte_')) return
-      const rteId = `rte_${uuid}_${slot}`
-      const rootBlk = await logseq.Editor.getBlock(uuid, {
-        includeChildren: true,
-      })
-      if (!rootBlk) return
+  const applyWidth = (width: number) => {
+    logseq.provideStyle({
+      key: 'vim-editor-styles',
+      style: `
+        body {
+          display: flex !important;
+          flex-direction: row !important;
+          height: 100vh !important;
+          overflow: hidden !important;
+        }
+        div#root {
+          flex: 1 !important;
+          overflow-y: auto !important;
+          min-width: 0 !important;
+        }
+        div#logseq-vimeditor-plugin_lsp_main {
+          width: ${width}px !important;
+          flex-shrink: 0 !important;
+          height: 100% !important;
+          position: relative !important;
+          top: auto !important;
+          left: auto !important;
+          overflow-y: auto !important;
+          background: var(--ls-primary-background-color);
+          border-left: 1px solid var(--lx-gray-09, #333);
+          order: 1;
+        }
+        div.preboot-loading {
+          display: none !important;
+        }`,
+    })
+    logseq.setMainUIInlineStyle({
+      position: 'fixed',
+      zIndex: 11,
+      top: 0,
+      right: 0,
+      left: 'auto',
+      width: `${width}px`,
+      height: '100vh',
+    })
+  }
 
-      const contentBlock = rootBlk.children?.[0] as BlockEntity
-      if (!contentBlock) return
+  const initialWidth = (logseq.settings?.vimEditorWidth as number) || 600
+  applyWidth(initialWidth)
 
-      logseq.provideUI({
-        key: rteId,
-        slot,
-        reset: true,
-        template: `<div id="${rteId}"></div>`,
-      })
+  window.__applyVimEditorWidth = applyWidth
 
-      setTimeout(() => {
-        const el = parent.document.getElementById(rteId)
-        if (!el || !el.isConnected) return
-        const root = createRoot(el)
-        root.render(<RTE contentBlock={contentBlock} rteId={rteId} />)
-      }, 0)
-    },
-  )
+  const el = document.getElementById('app')
+  if (!el) return
+  const root = createRoot(el)
+
+  logseq.Editor.registerSlashCommand('Edit in VIM mode', async (e) => {
+    logseq.hideMainUI()
+    const block = await logseq.Editor.getBlock(e.uuid)
+    const content = block?.content ?? ''
+    await logseq.Editor.exitEditingMode(true)
+    root.render(
+      <VimCMEditor
+        uuid={e.uuid}
+        initialContent={content}
+        key={e.uuid + Date.now()}
+      />,
+    )
+    logseq.showMainUI()
+  })
 }
 
 logseq.useSettingsSchema(settings).ready(main).catch(console.error)

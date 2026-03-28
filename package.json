@@ -1,11 +1,11 @@
 {
-  "name": "logseq-richtexteditor-plugin",
+  "name": "logseq-vimeditor-plugin",
   "author": "benjypng",
-  "description": "Adds a rich-text editor to your graph.",
+  "description": "Adds a Vim editor to your Logseq graph.",
   "license": "MIT",
   "logseq": {
-    "id": "logseq-richtexteditor-plugin",
-    "title": "logseq-richtexteditor-plugin",
+    "id": "logseq-vimeditor-plugin",
+    "title": "logseq-vimeditor-plugin",
     "icon": "./icon.svg",
     "main": "dist/index.html"
   },
@@ -24,25 +24,20 @@
         "@semantic-release/github",
         {
           "assets": [
-            "logseq-richtexteditor-plugin.zip"
+            "logseq-vimeditor-plugin.zip"
           ]
         }
       ]
     ]
   },
   "dependencies": {
+    "@codemirror/commands": "^6.10.3",
+    "@codemirror/lang-markdown": "^6.5.0",
+    "@codemirror/state": "^6.6.0",
+    "@codemirror/view": "^6.40.0",
     "@logseq/libs": "^0.0.17",
-    "@tiptap/core": "^2.5.9",
-    "@tiptap/extension-highlight": "^2.6.4",
-    "@tiptap/extension-table": "^2.5.9",
-    "@tiptap/extension-table-cell": "^2.5.9",
-    "@tiptap/extension-table-header": "^2.5.9",
-    "@tiptap/extension-table-row": "^2.5.9",
-    "@tiptap/extension-text-align": "^2.5.9",
-    "@tiptap/extension-underline": "^2.5.9",
-    "@tiptap/react": "^2.5.9",
-    "@tiptap/starter-kit": "^2.5.9",
-    "lucide-react": "^0.427.0",
+    "@replit/codemirror-vim": "^6.3.0",
+    "@susisu/mte-kernel": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
