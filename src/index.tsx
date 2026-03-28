@@ -34,7 +34,7 @@ const main = async () => {
       })
       if (!rootBlk) return
 
-      const contentBlock = rootBlk?.children![0] as BlockEntity
+      const contentBlock = rootBlk.children?.[0] as BlockEntity
       if (!contentBlock) return
 
       logseq.provideUI({
