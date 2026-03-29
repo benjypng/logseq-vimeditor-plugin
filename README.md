@@ -8,6 +8,8 @@ A Vim-powered editor panel for Logseq, using CodeMirror with Vim keybindings and
 
 Opens a resizable side panel with a full Vim-mode editor (powered by CodeMirror and `@replit/codemirror-vim`) for editing block content. Changes are autosaved back to the block. Includes built-in markdown table editing via `@susisu/mte-kernel`.
 
+![](./screenshots/vim.gif)
+
 ## Features
 
 - Vim keybindings via CodeMirror
