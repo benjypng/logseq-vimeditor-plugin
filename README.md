@@ -1,29 +1,25 @@
 ![Logseq Badge](https://img.shields.io/badge/logseq-%2385C8C8?style=for-the-badge&logo=logseq&logoColor=black)
 
-# Logseq Rich Text Editor Plugin
+# Logseq Vim Editor Plugin
 
-A simple rich text editor plugin for Logseq, enhancing editing capabilities across devices.
-
-![](/screenshots/demo.gif)
+A Vim-powered editor panel for Logseq, using CodeMirror with Vim keybindings and markdown table editing support.
 
 ## Overview
 
-The Logseq Rich Text Editor Plugin seamlessly integrates a versatile rich text editor into your Logseq graph. It renders content in HTML, ensuring compatibility and visibility even on mobile devices without a dedicated renderer.
-
-
+Opens a resizable side panel with a full Vim-mode editor (powered by CodeMirror and `@replit/codemirror-vim`) for editing block content. Changes are autosaved back to the block. Includes built-in markdown table editing via `@susisu/mte-kernel`.
 
 ## Features
 
-- Rich text editing capabilities:
-  - Headers (H1-H3)
-  - Text formatting (Bold, Italic, Strikethrough, Underline)
-  - Blockquotes and code blocks
-  - Horizontal rules
-  - Text alignment options
-  - Bullet and ordered lists
-  - Tables
-- HTML rendering for cross-device compatibility
-- Print functionality with basic styles
+- Vim keybindings via CodeMirror
+- Markdown syntax highlighting
+- Resizable side panel (drag the left edge or configure width in settings)
+- Autosave to the source block
+- Markdown table editing:
+  - `Tab` / `Shift-Tab` to navigate between cells
+  - `Enter` to move to the next row
+  - `Cmd/Ctrl+Shift+F` to format the table
+- Line numbers and line wrapping
+- Click the block UUID link in the header to scroll to the block in Logseq
 
 ## Installation
 
@@ -31,14 +27,16 @@ Install from the marketplace or load the plugin locally.
 
 ## Usage
 
-1. Use the slash command `/Insert rich text editor`.
-2. The editor will be inserted, and a child block will also be inserted but collapsed.
-3. The child block contains the HTML for the content in the rich text editor.
-4. Editing the child block edits the content in the rich text editor and vice versa.
+1. Edit a block and use the slash command `/Edit in VIM mode`.
+2. The Vim editor opens in a side panel with the block's content.
+3. Edit using Vim keybindings. Changes are autosaved to the block.
+4. Click the `✕` button to close the editor panel.
 
 ## Configuration
 
-No additional configuration is required. The plugin works out of the box with default settings.
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Vim Editor Width | `600` | Width of the editor panel in pixels. Can also be adjusted by dragging the left edge of the panel. |
 
 ## License
 
