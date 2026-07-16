@@ -31,24 +31,24 @@
     ]
   },
   "dependencies": {
-    "@codemirror/commands": "^6.10.3",
-    "@codemirror/lang-markdown": "^6.5.0",
-    "@codemirror/state": "^6.6.0",
-    "@codemirror/view": "^6.43.0",
-    "@logseq/libs": "^0.0.17",
+    "@codemirror/commands": "^6.10.4",
+    "@codemirror/lang-markdown": "^6.5.1",
+    "@codemirror/state": "^6.7.1",
+    "@codemirror/view": "^6.43.6",
+    "@logseq/libs": "^0.3.4",
     "@replit/codemirror-vim": "^6.3.0",
     "@susisu/mte-kernel": "^2.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.16",
-    "@types/node": "^25.9.2",
+    "@biomejs/biome": "2.5.4",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "husky": "^9.1.7",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.16",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.4",
     "vite-plugin-logseq": "^1.1.2",
     "vite-tsconfig-paths": "^6.1.1"
   }
